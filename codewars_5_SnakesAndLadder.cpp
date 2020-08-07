@@ -29,9 +29,9 @@ public:
 SnakesLadders::SnakesLadders()
 {
     player[0].number = 1;
-    player[0].position = 1;
+    player[0].position = 0;
     player[1].number = 2;
-    player[1].position = 1;
+    player[1].position = 0;
 }
 
 std::string SnakesLadders::play(int die1, int die2)
@@ -39,7 +39,7 @@ std::string SnakesLadders::play(int die1, int die2)
 
     if (gameFinished == true)
     {
-        return std::string("Game over!");
+        return "Game over!";
     }
 
     int newBordIndex = player[activePlayerIndex].position + die1 + die2;
@@ -53,18 +53,17 @@ std::string SnakesLadders::play(int die1, int die2)
     if (player[activePlayerIndex].position == 100)
     {
         gameFinished = true;
-        return std::string("Player ").append(player[activePlayerIndex].number) + std::string(" Wins!");
+        return "Player " + std::to_string(player[activePlayerIndex].number) + " Wins!";
     }
 
-    std::string result = std::string("Player ").append(player[activePlayerIndex].number) + std::string(" is on square ").append(player[activePlayerIndex].position);
+    std::string result = "Player " + std::to_string(player[activePlayerIndex].number) + " is on square " + std::to_string(player[activePlayerIndex].position);
 
-    //set next player
     if (die1 != die2)
     {
         activePlayerIndex = (activePlayerIndex + 1) % 2;
     }
 
-    return "";
+    return result;
 };
 
 bool checkResult(std::string received, std::string expected)
@@ -80,4 +79,5 @@ int main()
     assert(checkResult(game.play(1, 5), std::string("Player 1 is on square 44")));
     assert(checkResult(game.play(6, 2), std::string("Player 2 is on square 31")));
     assert(checkResult(game.play(1, 1), std::string("Player 1 is on square 25")));
+    std::cout << "Test passed";
 }
